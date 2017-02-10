@@ -1,12 +1,13 @@
 package com.travel.model;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 /**
  * Created by Tanya on 10.02.2017.
  */
 @Entity
-public class Language {
+public class Language implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

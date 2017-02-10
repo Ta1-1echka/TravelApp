@@ -10,7 +10,16 @@
     <link href="<c:url value="/resources/css/imghover.css"/>" type="text/css" rel="stylesheet">
     <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet">
     <link rel="stylesheet/less" type="text/css" href="<c:url value="/resources/bootstrap-3.3.7/less/bootstrap.less"/>"/>
+    <style type="text/css">
+        .center-block {
+            margin-left: 40%;
+            padding: 10px;
+        }
 
+        h2 {
+            margin-left: 17%;
+        }
+    </style>
 </head>
 <body>
 <form:form action="/j_spring_security_logout" method="post" id="form_submit"> </form:form>
@@ -20,16 +29,16 @@
             <div class=" container-fluid" style="vertical-align: middle">
                 <ul class="nav navbar-nav text-center">
                     <li style="font-size: 15px">
-                        <a class="navbar-brand" href="/"><i class="fa fa-home fa-1x"></i> Главная</a>
+                        <a class="navbar-brand" href="/admin"><i class="fa fa-home fa-1x"></i> Главная</a>
                     </li>
                     <li><a href="#"><i class="fa fa-search fa-1x"></i> Подбор тура</a></li>
+
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                             <i class="fa fa-bars"></i> Страны
                         </a>
                         <ul class="dropdown-menu">
                             <li><a href="/admin/country">Добавить</a></li>
-                            <li><a href="#">Удалить</a></li>
                         </ul>
                     </li>
                     <li><a href="#"><i class="fa fa-comment"></i> Отзывы</a></li>
@@ -52,66 +61,60 @@
             </div>
         </div>
     </div>
+</div>
 
-
-    <div class="container-fluid">
-        <div class="row no-gutter">
-            <div class="input-group">
-                <input type="text" class="form-control">
-                <span class="input-group-btn">
-                    <button class="btn btn-default" type="button">
-                        Поиск
-                     </button>
-                </span>
-
-            </div>
+<div class="container">
+    <div class="row">
+        <div class="center-block col-lg-2">
+            <form:form action="/admin/tour" method="post">
+                <button type="submit" class="btn btn-default btn-lg btn-block btn-success">+ Добавить тур</button>
+            </form:form>
         </div>
     </div>
+</div>
 
-
-    <div class="container-fluid" style="margin-top: 20px">
-        <div class="row no-gutter">
-            <div class="col-lg-4 text-center">
-                <div class="embed-responsive embed-responsive-4by3">
-                    <div class="hovereffect embed-responsive-item">
-                        <img class="img-responsive " src="<c:url value="/resources/img/1.jpg"/>">
-                        <div class="overlay">
-                            <h2>Hover effect 1 мрмрпм мр мпр мпрм мрп мрп мрпм мрмрпмрпмр </h2>
-                            <p class="info">
-                                Тур выходного дня<br>
-                                Cnjbvjcnm
-                            </p>
-                        </div>
+<div class="container" style="margin-top: 20px">
+    <div class="row no-gutter">
+        <div class="col-lg-4 text-center">
+            <div class="embed-responsive embed-responsive-4by3">
+                <div class="hovereffect embed-responsive-item">
+                    <img class="img-responsive " src="<c:url value="/resources/img/1.jpg"/>">
+                    <div class="overlay">
+                        <h2>Hover effect 1 мрмрпм мр мпр мпрм мрп мрп мрпм мрмрпмрпмр </h2>
+                        <p class="info">
+                            Тур выходного дня<br>
+                            Cnjbvjcnm
+                        </p>
                     </div>
                 </div>
             </div>
+        </div>
 
-            <div class="col-lg-4 text-center">
-                <div class="embed-responsive embed-responsive-4by3">
-                    <div class="hovereffect embed-responsive-item">
-                        <img class="img-responsive " src="<c:url value="/resources/img/1.jpg"/>">
-                        <div class="overlay">
-                            <h2>Hover effect 1</h2>
-                            <a class="info" href="#">Подробнее</a>
-                        </div>
+        <div class="col-lg-4 text-center">
+            <div class="embed-responsive embed-responsive-4by3">
+                <div class="hovereffect embed-responsive-item">
+                    <img class="img-responsive " src="<c:url value="/resources/img/1.jpg"/>">
+                    <div class="overlay">
+                        <h2>Hover effect 1</h2>
+                        <a class="info" href="#">Подробнее</a>
                     </div>
                 </div>
             </div>
+        </div>
 
-            <div class="col-lg-4 text-center">
-                <div class="embed-responsive embed-responsive-4by3">
-                    <div class="hovereffect embed-responsive-item">
-                        <img class="img-responsive " src="<c:url value="/resources/img/1.jpg"/>">
-                        <div class="overlay">
-                            <h2>Hover effect 1</h2>
-                            <a class="info" href="#">link here</a>
-                        </div>
+        <div class="col-lg-4 text-center">
+            <div class="embed-responsive embed-responsive-4by3">
+                <div class="hovereffect embed-responsive-item">
+                    <img class="img-responsive " src="<c:url value="/resources/img/1.jpg"/>">
+                    <div class="overlay">
+                        <h2>Hover effect 1</h2>
+                        <a class="info" href="#">link here</a>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+</div>
 
-</div> <!-- /container -->
 </body>
 </html>

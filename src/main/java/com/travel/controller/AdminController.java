@@ -2,6 +2,7 @@ package com.travel.controller;
 
 import com.travel.model.Country;
 import com.travel.model.Language;
+import com.travel.model.Tour;
 import com.travel.service.CountryService;
 import com.travel.service.LanguageService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,10 +50,20 @@ public class AdminController {
     @RequestMapping("/country/add")
     public String addCountry(@ModelAttribute("country") @Valid Country country, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
+            System.out.println("error");
             return "country";
         }
         languageService.saveOrUpdate(country.getLanguageList());
         countryService.save(country);
         return "redirect:/admin";
+    }
+
+    @RequestMapping("/tour")
+    public ModelAndView getTourPage()
+    {
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("tour");
+        modelAndView.addObject("tour", new Tour());
+        return modelAndView;
     }
 }

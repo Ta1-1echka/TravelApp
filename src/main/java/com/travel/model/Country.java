@@ -39,7 +39,7 @@ public class Country implements Serializable {
     @Size(max = 3, message = "Максимальный размер = 3, пример RUB")
     private String currency;
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToMany()
     @JoinTable(
             name = "country_has_language",
             joinColumns = @JoinColumn(name = "id_country"),

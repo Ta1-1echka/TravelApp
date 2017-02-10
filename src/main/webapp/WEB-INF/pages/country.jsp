@@ -1,6 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <html>
 <head>
     <script src="//cdnjs.cloudflare.com/ajax/libs/less.js/2.7.2/less.min.js"></script>
@@ -40,7 +41,7 @@
             <div class=" container-fluid" style="vertical-align: middle">
                 <ul class="nav navbar-nav text-center">
                     <li style="font-size: 15px">
-                        <a class="navbar-brand" href="/"><i class="fa fa-home fa-1x"></i> Главная</a>
+                        <a class="navbar-brand" href="/admin"><i class="fa fa-home fa-1x"></i> Главная</a>
                     </li>
                     <li><a href="#"><i class="fa fa-search fa-1x"></i> Подбор тура</a></li>
                     <li class="dropdown">
@@ -49,7 +50,6 @@
                         </a>
                         <ul class="dropdown-menu">
                             <li><a href="#">Добавить</a></li>
-                            <li><a href="#">Удалить</a></li>
                         </ul>
                     </li>
                     <li><a href="#"><i class="fa fa-comment"></i> Отзывы</a></li>
@@ -87,7 +87,17 @@
                         <form:input type="text" class="form-control" id="inputNameCode" placeholder="Введите код страны"
                                     path="nameCode"/>
                     </div>
-                    <form:errors path="nameCode"></form:errors>
+                    <div class="col-md-4">
+                        <spring:bind path="nameCode">
+                            <c:if test="${not empty status.errorMessages}">
+                                <div class="alert alert-danger alert-dismissable">
+                                    <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
+                                    <strong><form:errors path="capital"></form:errors></strong>
+                                </div>
+                            </c:if>
+                        </spring:bind>
+                    </div>
+
                 </div>
 
                 <div class="form-group">
@@ -98,7 +108,17 @@
                                     placeholder="Введите столицу страны"
                                     path="capital"/>
                     </div>
-                    <form:errors path="capital"></form:errors>
+                    <div class="col-md-4">
+                        <spring:bind path="nameCode">
+                            <c:if test="${not empty status.errorMessages}">
+                                <div class="alert alert-danger alert-dismissable">
+                                    <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
+                                    <strong><form:errors path="capital"></form:errors></strong>
+                                </div>
+                            </c:if>
+                        </spring:bind>
+                    </div>
+
                 </div>
                 <div class="form-group">
                     <label for="inputСurrency" class="col-md-2 control-label text-left"><p class="text-justify">
@@ -108,7 +128,17 @@
                                     placeholder="Введите валюту страны"
                                     path="currency"/>
                     </div>
-                    <form:errors path="currency"></form:errors>
+                    <div class="col-md-4">
+                        <spring:bind path="nameCode">
+                            <c:if test="${not empty status.errorMessages}">
+                                <div class="alert alert-danger alert-dismissable">
+                                    <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
+                                    <strong><form:errors path="currency"></form:errors></strong>
+                                </div>
+                            </c:if>
+                        </spring:bind>
+                    </div>
+
                 </div>
                 <div class="form-group">
                     <label for="inputLanguage" class="col-md-2 control-label text-left"><p class="text-justify">
@@ -123,7 +153,7 @@
                         О стране </p></label>
                     <div class="col-md-8">
                         <form:textarea type="text" class="form-control" id="inputAbout" placeholder="Введите о страны"
-                                    path="about" cols="100" rows="10"/>
+                                       path="about" cols="100" rows="10"/>
                     </div>
                 </div>
                 <div class="form-group">
@@ -131,8 +161,8 @@
                         О климате </p></label>
                     <div class="col-md-8">
                         <form:textarea type="text" class="form-control" id="inputСlimate"
-                                    placeholder="Введите о климате страны"
-                                    path="climate" cols="100" rows="10"/>
+                                       placeholder="Введите о климате страны"
+                                       path="climate" cols="100" rows="10"/>
                     </div>
                 </div>
                 <div class="form-group">
