@@ -153,3 +153,7 @@
 </html>
 
 <%--http://eonasdan.github.io/bootstrap-datetimepicker/Installing/--%>
+
+<%--http://www.w3schools.com/bootstrap/default.asp--%>
+
+<%--https://itchief.ru/lessons/bootstrap-3/22-the-grid-system-twitter-bootstrap-3--%>
