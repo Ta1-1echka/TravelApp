@@ -31,8 +31,6 @@ public class LanguageServiceImpl implements LanguageService {
             }
 
         }
-        System.out.println("****" + languageList.get(0).getLanguageName() + languageList.get(0).getIdLanguage());
-
         return languageList;
     }
 }

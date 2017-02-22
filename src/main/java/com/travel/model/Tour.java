@@ -1,13 +1,21 @@
 package com.travel.model;
 
+import org.hibernate.validator.constraints.NotEmpty;
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import java.io.Serializable;
+import java.sql.Blob;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by Tanya on 10.02.2017.
  */
 @Entity
-public class Tour {
+public class Tour implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -18,46 +26,66 @@ public class Tour {
     private String tourName;
 
     @Column(name = "date_from")
-    @Temporal(TemporalType.TIMESTAMP)
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     private Date dateFrom;
 
     @Column(name = "date_to")
-    @Temporal(TemporalType.TIMESTAMP)
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     private Date dateTo;
 
     @Column(name = "date_out")
-    @Temporal(TemporalType.TIMESTAMP)
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+    @NotNull
     private Date dateOut;
 
     @Column(name = "date_back")
-    @Temporal(TemporalType.TIMESTAMP)
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+    @NotNull
     private Date dateBack;
 
     @Column(name = "count_all_places")
-    private int countAllPlaces;
+    private Integer countAllPlaces;
 
     @Column(name = "count_free_places")
-    private int countFreePlaces;
+    private Integer countFreePlaces;
 
     @Column(name = "price_adult")
-    private double adultPrice;
+    private Double adultPrice;
 
     @Column(name = "price_child")
-    private double childPrice;
+    private Double childPrice;
 
     @Column(name = "about")
     private String aboutTour;
 
     @Column(name = "photo")
-    private String photoURL;
+    private String photo;
 
-    @Enumerated
     @Column(name = "feed_type")
+    @Enumerated(EnumType.STRING)
     private FeedType feedType;
 
-    @Enumerated
     @Column(name = "transport")
+    @Enumerated(EnumType.STRING)
     private Transport transport;
+
+    @ManyToMany
+    @JoinTable(
+            name = "tour_has_hotel",
+            joinColumns = @JoinColumn(name = "id_tour"),
+            inverseJoinColumns = @JoinColumn(name = "id_hotel"))
+    private List<Hotel> hotelList;
+
+    @OneToMany(mappedBy = "tour", cascade = CascadeType.ALL)
+    private List<Request> requestList = new ArrayList<Request>();
+
+    public List<Request> getRequestList() {
+        return requestList;
+    }
+
+    public void setRequestList(List<Request> requestList) {
+        this.requestList = requestList;
+    }
 
     public Long getIdTour() {
         return idTour;
@@ -107,35 +135,35 @@ public class Tour {
         this.dateBack = dateBack;
     }
 
-    public int getCountAllPlaces() {
+    public Integer getCountAllPlaces() {
         return countAllPlaces;
     }
 
-    public void setCountAllPlaces(int countAllPlaces) {
+    public void setCountAllPlaces(Integer countAllPlaces) {
         this.countAllPlaces = countAllPlaces;
     }
 
-    public int getCountFreePlaces() {
+    public Integer getCountFreePlaces() {
         return countFreePlaces;
     }
 
-    public void setCountFreePlaces(int countFreePlaces) {
+    public void setCountFreePlaces(Integer countFreePlaces) {
         this.countFreePlaces = countFreePlaces;
     }
 
-    public double getAdultPrice() {
+    public Double getAdultPrice() {
         return adultPrice;
     }
 
-    public void setAdultPrice(double adultPrice) {
+    public void setAdultPrice(Double adultPrice) {
         this.adultPrice = adultPrice;
     }
 
-    public double getChildPrice() {
+    public Double getChildPrice() {
         return childPrice;
     }
 
-    public void setChildPrice(double childPrice) {
+    public void setChildPrice(Double childPrice) {
         this.childPrice = childPrice;
     }
 
@@ -147,12 +175,12 @@ public class Tour {
         this.aboutTour = aboutTour;
     }
 
-    public String getPhotoURL() {
-        return photoURL;
+    public String getPhoto() {
+        return photo;
     }
 
-    public void setPhotoURL(String photoURL) {
-        this.photoURL = photoURL;
+    public void setPhoto(String photo) {
+        this.photo = photo;
     }
 
     public FeedType getFeedType() {
@@ -169,5 +197,13 @@ public class Tour {
 
     public void setTransport(Transport transport) {
         this.transport = transport;
+    }
+
+    public List<Hotel> getHotelList() {
+        return hotelList;
+    }
+
+    public void setHotelList(List<Hotel> hotelList) {
+        this.hotelList = hotelList;
     }
 }

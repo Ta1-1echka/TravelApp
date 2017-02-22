@@ -5,5 +5,5 @@ package com.travel.model;
  */
 public enum FeedType {
 
-    RO, BB, HB, FB, Ai, UAI;
+    RO, BB, HB, FB, AI, UAI;
 }

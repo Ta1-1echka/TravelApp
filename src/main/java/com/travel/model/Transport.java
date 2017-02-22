@@ -4,5 +4,5 @@ package com.travel.model;
  * Created by Tanya on 10.02.2017.
  */
 public enum Transport {
-    Bus, Airplane, Train, Liner;
+    bus, airplane, train, liner;
 }

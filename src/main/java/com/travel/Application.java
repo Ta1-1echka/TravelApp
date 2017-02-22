@@ -6,11 +6,13 @@ import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.support.SpringBootServletInitializer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.support.ResourceBundleMessageSource;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 /**
  * Created by Tanya on 08.02.2017.
  */
 @SpringBootApplication
+@EnableTransactionManagement
 public class Application extends SpringBootServletInitializer {
 
     public static void main(String[] args) {
@@ -28,4 +30,5 @@ public class Application extends SpringBootServletInitializer {
         source.setUseCodeAsDefaultMessage(true);
         return source;
     }
+
 }

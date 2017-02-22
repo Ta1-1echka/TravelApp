@@ -28,24 +28,17 @@
             <div class=" container-fluid" style="vertical-align: middle">
                 <ul class="nav navbar-nav text-center">
                     <li style="font-size: 15px">
-                        <a class="navbar-brand" href="#"><i class="fa fa-home fa-1x"></i> Главная</a>
+                        <a class="navbar-brand" href="/"><i class="fa fa-home fa-1x"></i> Главная</a>
                     </li>
                     <li><a href="#"><i class="fa fa-search fa-1x"></i> Подбор тура</a></li>
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                            <i class="fa fa-bars"></i> Страны
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li><a href="#">Action</a></li>
-                            <li><a href="#">Another action</a></li>
-                            <li><a href="#">Something else here</a></li>
-                        </ul>
-                    </li>
+                    <li><a href="/country"><i class="fa fa-bars"></i> Страны</a></li>
                     <li><a href="#"><i class="fa fa-comment"></i> Отзывы</a></li>
                     <li><a href="#"><i class="fa fa-thumb-tack fa-rotate-270"></i> О компании</a></li>
 
 
                 </ul>
+
+
 
             </div>
         </div>

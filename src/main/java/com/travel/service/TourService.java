@@ -1,6 +1,8 @@
 package com.travel.service;
 
+import com.travel.dto.SearchTourDTO;
 import com.travel.model.Tour;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -11,6 +13,13 @@ public interface TourService {
 
     void save(Tour tour);
 
-    List<Tour> getAll();
+    Iterable<Tour> getAll();
 
+    Tour getById(Long id);
+
+    List<Tour> getToursByFilter(SearchTourDTO searchTourDTO);
+
+    List<Tour> getToursBySearch(String name);
+
+    void deleteTourById(Long id);
 }

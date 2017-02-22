@@ -3,9 +3,9 @@ package com.travel.model;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -16,7 +16,7 @@ public class Country implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id_сountry")
+    @Column(name = "id_country")
     private Long idCountry;
 
     @Column(name = "name_сode")
@@ -46,6 +46,29 @@ public class Country implements Serializable {
             inverseJoinColumns = @JoinColumn(name = "id_language")
     )
     private List<Language> languageList;
+
+    @OneToMany(mappedBy = "country")
+    private List<City> cityList = new ArrayList<City>();
+
+    @Override
+    public String toString() {
+        return "Country{" +
+                "idCountry=" + idCountry +
+                ", nameCode='" + nameCode + '\'' +
+                ", about='" + about + '\'' +
+                ", capital='" + capital + '\'' +
+                ", climate='" + climate + '\'' +
+                ", currency='" + currency + '\'' +
+                '}';
+    }
+
+    public List<City> getCityList() {
+        return cityList;
+    }
+
+    public void setCityList(List<City> cityList) {
+        this.cityList = cityList;
+    }
 
     public Long getIdCountry() {
         return idCountry;
