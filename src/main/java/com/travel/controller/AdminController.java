@@ -1,6 +1,7 @@
 package com.travel.controller;
 
 import com.travel.converterDTO.TourConverter;
+import com.travel.dto.RequestDTO;
 import com.travel.dto.SearchTourDTO;
 import com.travel.dto.TourDTO;
 import com.travel.model.*;
@@ -49,6 +50,9 @@ public class AdminController {
 
     @Autowired
     private TourConverter tourConverter;
+
+    @Autowired
+    private RequestService requestService;
 
     @RequestMapping("/country")
     public ModelAndView getCountryPage() {
@@ -99,7 +103,7 @@ public class AdminController {
         modelAndView.setViewName("main");
         modelAndView.addObject("search", new SearchTourDTO());
         modelAndView.addObject("feedTypeList", Arrays.asList(FeedType.values()));
-        modelAndView.addObject("countries",countryService.getAllNameCode());
+        modelAndView.addObject("countries", countryService.getAllNameCode());
         modelAndView.addObject("transportList", Arrays.asList(Transport.values()));
         return modelAndView;
     }
@@ -121,8 +125,7 @@ public class AdminController {
     }
 
     @RequestMapping("/tour/delete/{id}")
-    public String deleteTourById(@PathVariable("id") Long id)
-    {
+    public String deleteTourById(@PathVariable("id") Long id) {
         tourService.deleteTourById(id);
         return "redirect:/";
     }
@@ -191,4 +194,23 @@ public class AdminController {
         return modelAndView;
     }
 
+    @RequestMapping("/requests")
+    public ModelAndView getRequestPage() {
+        ModelAndView modelAndView = new ModelAndView("requests");
+        RequestDTO requestDTO = new RequestDTO();
+        requestDTO.setList(requestService.getAllRequests());
+        modelAndView.addObject("request", requestDTO);
+        return modelAndView;
+    }
+
+    @RequestMapping("/requests/change")
+    public ModelAndView changeRequests(@ModelAttribute("request") RequestDTO requestDTO) {
+        ModelAndView modelAndView = new ModelAndView("requests");
+        requestService.saveChanges(requestDTO.getList());
+        RequestDTO requestDTOResult = new RequestDTO();
+        requestDTOResult.setList(requestService.getAllRequests());
+        modelAndView.addObject("request", requestDTOResult);
+        modelAndView.addObject("success", true);
+        return modelAndView;
+    }
 }

@@ -49,7 +49,7 @@
                     <li><a href="/country"><i class="fa fa-bars"></i> Страны</a></li>
                     <li><a href="#"><i class="fa fa-comment"></i> Отзывы</a></li>
                     <security:authorize access="hasRole('ROLE_ADMIN')">
-                        <li><a href="#"><i class="fa fa-users"></i> Заявки</a></li>
+                        <li><a href="/admin/requests"><i class="fa fa-users"></i> Заявки</a></li>
                     </security:authorize>
                     <li><a href="#"><i class="fa fa-thumb-tack fa-rotate-270"></i> О компании</a></li>
 
