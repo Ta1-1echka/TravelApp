@@ -25,9 +25,6 @@ public class TourServiceImpl implements TourService {
     @Autowired
     private EntityManager entityManager;
 
-    @Value("${path}")
-    public String path;
-
     @Override
     public void save(Tour tour) {
         tourRepository.save(tour);

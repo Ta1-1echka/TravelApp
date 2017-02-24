@@ -2,18 +2,14 @@ package com.travel.controller;
 
 import com.travel.dto.SearchTourDTO;
 import com.travel.model.*;
-import com.travel.service.CityService;
-import com.travel.service.CountryService;
-import com.travel.service.RequestService;
-import com.travel.service.TourService;
+import com.travel.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
@@ -37,6 +33,9 @@ public class MainController {
 
     @Autowired
     private RequestService requestService;
+
+    @Autowired
+    private CommentService commentService;
 
     @RequestMapping
     public ModelAndView getIndexPage() {
@@ -70,12 +69,27 @@ public class MainController {
             countryCityHotel += (hotel.getCity().getCountry().getNameCode() + " - " + hotel.getCity().getCityName() + " - "
                     + hotel.getHotelName() + "; ");
         }
-
-
         modelAndView.addObject("tour", tour);
+        modelAndView.addObject("comment", new Comment());
+        if (tour.getStarCount() != 0)
+            modelAndView.addObject("rating", new BigDecimal((double) tour.getStarValue() / tour.getStarCount()).
+                    setScale(3, RoundingMode.UP).doubleValue());
         modelAndView.addObject("request", new Request());
         modelAndView.addObject("countryCityHotel", countryCityHotel);
         return modelAndView;
+    }
+
+    @RequestMapping("tour_info/{id}/star")
+    @ResponseBody
+    public double addStarValue(@PathVariable("id") Long id, @RequestParam("value") int value) {
+        Tour tour = tourService.getById(id);
+        int starCount = tour.getStarCount(),
+                starValue = tour.getStarValue();
+        tour.setStarCount(++starCount);
+        starValue += value;
+        tour.setStarValue(starValue);
+        tourService.save(tour);
+        return new BigDecimal((double) starValue / starCount).setScale(3, RoundingMode.UP).doubleValue();
     }
 
     @RequestMapping("country")
@@ -139,5 +153,13 @@ public class MainController {
         modelAndView.addObject("countries", countryService.getAllNameCode());
         modelAndView.addObject("transportList", Arrays.asList(Transport.values()));
         return modelAndView;
+    }
+
+    @RequestMapping("/tour/{idTour}/comment")
+    public String saveComment(@ModelAttribute("comment") Comment comment, @PathVariable("idTour") Long idTour) {
+
+        comment.setTour(tourService.getById(idTour));
+        commentService.save(comment);
+        return "redirect:/tour_info/" + idTour;
     }
 }

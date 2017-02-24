@@ -88,7 +88,7 @@ public class AdminController {
     }
 
     @RequestMapping("/tour/add")
-    public ModelAndView addTour(@RequestParam("file") MultipartFile file, @ModelAttribute("tour") TourDTO tour,
+    public ModelAndView addTour(@RequestParam("file") MultipartFile file, @ModelAttribute("tour") @Valid TourDTO tour,
                                 BindingResult bindingResult, ModelAndView modelAndView) throws IOException {
         byte[] encodeBase64 = Base64.getEncoder().encode(file.getBytes());
         String base64Encoded = new String(encodeBase64, "UTF-8");
@@ -140,7 +140,6 @@ public class AdminController {
     public ModelAndView editCountryPage(@PathVariable("id") Long id) {
         ModelAndView modelAndView = new ModelAndView("addcountry");
         modelAndView.addObject("country", countryService.getCountryById(id));
-        System.out.println("***size=" + countryService.getCountryById(id).getLanguageList().size());
         modelAndView.addObject("edit", true);
         return modelAndView;
     }

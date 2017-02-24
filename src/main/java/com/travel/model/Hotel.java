@@ -18,13 +18,7 @@ public class Hotel implements Serializable {
     @Column(name = "name")
     private String hotelName;
 
-    @Column(name = "star_all_value")
-    private int starAllValue;
-
-    @Column(name = "star_count")
-    private int starCount;
-
-    @ManyToOne(fetch=FetchType.LAZY)
+        @ManyToOne(fetch=FetchType.LAZY)
     @JoinColumn(name = "id_city")
     private City city;
 
@@ -59,21 +53,6 @@ public class Hotel implements Serializable {
         this.hotelName = hotelName;
     }
 
-    public int getStarAllValue() {
-        return starAllValue;
-    }
-
-    public void setStarAllValue(int starAllValue) {
-        this.starAllValue = starAllValue;
-    }
-
-    public int getStarCount() {
-        return starCount;
-    }
-
-    public void setStarCount(int starCount) {
-        this.starCount = starCount;
-    }
 
     public City getCity() {
         return city;

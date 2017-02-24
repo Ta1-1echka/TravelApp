@@ -23,14 +23,17 @@ public class Tour implements Serializable {
     private Long idTour;
 
     @Column(name = "name")
+    @NotEmpty
     private String tourName;
 
     @Column(name = "date_from")
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+    @NotNull
     private Date dateFrom;
 
     @Column(name = "date_to")
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+    @NotNull
     private Date dateTo;
 
     @Column(name = "date_out")
@@ -44,28 +47,42 @@ public class Tour implements Serializable {
     private Date dateBack;
 
     @Column(name = "count_all_places")
+    @NotNull
     private Integer countAllPlaces;
 
     @Column(name = "count_free_places")
+    @NotNull
     private Integer countFreePlaces;
 
     @Column(name = "price_adult")
+    @NotNull
     private Double adultPrice;
 
     @Column(name = "price_child")
+    @NotNull
     private Double childPrice;
 
     @Column(name = "about")
+    @NotEmpty
     private String aboutTour;
 
     @Column(name = "photo")
+    @NotEmpty
     private String photo;
 
+    @Column(name = "star_value")
+    private Integer starValue;
+
+    @Column(name = "star_count")
+    private Integer starCount;
+
     @Column(name = "feed_type")
+    @NotNull
     @Enumerated(EnumType.STRING)
     private FeedType feedType;
 
     @Column(name = "transport")
+    @NotNull
     @Enumerated(EnumType.STRING)
     private Transport transport;
 
@@ -78,6 +95,33 @@ public class Tour implements Serializable {
 
     @OneToMany(mappedBy = "tour", cascade = CascadeType.ALL)
     private List<Request> requestList = new ArrayList<Request>();
+
+    @OneToMany(mappedBy = "tour", cascade = CascadeType.ALL)
+    private List<Comment> commentList = new ArrayList<Comment>();
+
+    public Integer getStarValue() {
+        return starValue;
+    }
+
+    public void setStarValue(Integer starValue) {
+        this.starValue = starValue;
+    }
+
+    public Integer getStarCount() {
+        return starCount;
+    }
+
+    public void setStarCount(Integer starCount) {
+        this.starCount = starCount;
+    }
+
+    public List<Comment> getCommentList() {
+        return commentList;
+    }
+
+    public void setCommentList(List<Comment> commentList) {
+        this.commentList = commentList;
+    }
 
     public List<Request> getRequestList() {
         return requestList;

@@ -21,18 +21,6 @@ public class TourValidation implements Validator {
     public void validate(Object o, Errors errors) {
         TourDTO tour = (TourDTO) o;
 
-        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "tourName", "NotEmpty");
-        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "dateFrom", "NotEmpty");
-        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "dateTo", "NotEmpty");
-        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "dateOut", "NotEmpty");
-        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "dateBack", "NotEmpty");
-        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "adultPrice", "NotEmpty");
-        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "childPrice", "NotEmpty");
-        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "aboutTour", "NotEmpty");
-        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "feedType", "NotEmpty");
-        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "transport", "NotEmpty");
-        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "photo", "NotEmpty");
-        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "countAllPlaces", "NotEmpty");
         if (tour.getDateFrom() != null & tour.getDateTo() != null)
             if (tour.getDateFrom().after(tour.getDateTo())) {
                 errors.rejectValue("dateFrom", "IncorrectValue");

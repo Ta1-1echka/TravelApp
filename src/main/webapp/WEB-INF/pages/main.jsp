@@ -2,6 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <html>
 <head>
     <script src="//cdnjs.cloudflare.com/ajax/libs/less.js/2.7.2/less.min.js"></script>
@@ -43,26 +44,29 @@
             <div class=" container-fluid" style="vertical-align: middle">
                 <ul class="nav navbar-nav text-center">
                     <li style="font-size: 15px">
-                        <a class="navbar-brand" href="/"><i class="fa fa-home fa-1x"></i> Главная</a>
+                        <a class="navbar-brand" href="/"><i class="fa fa-home fa-1x"></i>
+                            Главная</a>
                     </li>
-                    <li><a href="#"><i class="fa fa-search fa-1x"></i> Подбор тура</a></li>
-                    <li><a href="/country"><i class="fa fa-bars"></i> Страны</a></li>
-                    <li><a href="#"><i class="fa fa-comment"></i> Отзывы</a></li>
+                    <li><a href="/country"><i class="fa fa-bars"></i>
+                        Страны</a></li>
                     <security:authorize access="hasRole('ROLE_ADMIN')">
-                        <li><a href="/admin/requests"><i class="fa fa-users"></i> Заявки</a></li>
+                        <li><a href="/admin/requests"><i class="fa fa-users"></i>
+                            Запросы</a></li>
                     </security:authorize>
-                    <li><a href="#"><i class="fa fa-thumb-tack fa-rotate-270"></i> О компании</a></li>
 
 
                 </ul>
 
                 <ul class="nav navbar-nav navbar-right">
                     <security:authorize access="isAnonymous()">
-                        <li class="nav navbar-nav navbar-right"><a href="/login"><i class="fa fa-sign-in"></i> Войти</a>
+                        <li class="nav navbar-nav navbar-right"><a href="/login">
+                            <i class="fa fa-sign-in"></i>
+                            Войти</a>
                         </li>
                     </security:authorize>
                     <security:authorize access="hasRole('ROLE_ADMIN')">
-                        <form:form action="/j_spring_security_logout" method="post" id="form_submit"> </form:form>
+                        <form:form action="/j_spring_security_logout" method="post" id="form_submit">
+                        </form:form>
                         <li class="nav navbar-nav navbar-right">
                             <a href="#" id="logout" onclick="document.getElementById('form_submit').submit();">
                                 <i class="fa fa-sign-out"></i>Выйти</a>
