@@ -45,7 +45,7 @@
                 <ul class="nav navbar-nav text-center">
                     <li style="font-size: 15px">
                         <a class="navbar-brand" href="/"><i class="fa fa-home fa-1x"></i>
-                            Главная</a>
+                            <spring:message code='navigation.main'/></a>
                     </li>
                     <li><a href="/country"><i class="fa fa-bars"></i>
                         Страны</a></li>

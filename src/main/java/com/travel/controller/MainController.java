@@ -14,6 +14,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
+import java.util.stream.StreamSupport;
+
+import static java.util.stream.Collectors.toList;
 
 /**
  * Created by Tanya on 08.02.2017.
@@ -40,12 +43,7 @@ public class MainController {
     @RequestMapping
     public ModelAndView getIndexPage() {
         ModelAndView modelAndView = new ModelAndView("main");
-        Iterable<Tour> i = tourService.getAll();
-        List<Tour> result = new ArrayList();
-        Iterator<Tour> iterator = i.iterator();
-        while (iterator.hasNext()) {
-            result.add(iterator.next());
-        }
+        List<Tour> result = StreamSupport.stream(tourService.getAll().spliterator(),false).collect(toList());
         modelAndView.addObject("tours", result);
         modelAndView.addObject("search", new SearchTourDTO());
         modelAndView.addObject("feedTypeList", Arrays.asList(FeedType.values()));

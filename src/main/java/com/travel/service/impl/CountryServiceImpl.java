@@ -48,15 +48,4 @@ public class CountryServiceImpl implements CountryService {
         countryRepository.delete(id);
     }
 
-    @Override
-    public List<Country> getPersistObject(List<Country> list) {
-        List<Country> countryList = new ArrayList<>();
-        for (Country country : list) {
-            List<City> cityList = country.getCityList();
-            country = countryRepository.findByNameCode(country.getNameCode());
-            country.setCityList(cityList);
-            countryList.add(country);
-        }
-        return countryList;
-    }
 }

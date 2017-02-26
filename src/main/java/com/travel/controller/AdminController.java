@@ -148,12 +148,13 @@ public class AdminController {
     public ModelAndView saveCitiesOfCountry(@ModelAttribute("country") Country country) {
         ModelAndView modelAndView = new ModelAndView("country");
         Country countryPersistent = countryService.getCountryById(country.getIdCountry());
+        //TODO
+       // country.getCityList().stream().;
         for (City city : country.getCityList()) {
             if (city.getIdCity() == null) {
                 city.setCountry(countryPersistent);
                 cityService.save(city);
             }
-
         }
         modelAndView.addObject("country", countryPersistent);
         return modelAndView;
@@ -163,6 +164,7 @@ public class AdminController {
     public ModelAndView saveHotelsOfCity(@ModelAttribute("city") City city) {
         ModelAndView modelAndView = new ModelAndView("city");
         City cityPersistent = cityService.getCityById(city.getIdCity());
+        //TODO
         for (Hotel hotel : city.getHotelList()) {
             if (hotel.getIdHotel() == null) {
                 hotel.setCity(cityPersistent);

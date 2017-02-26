@@ -19,5 +19,4 @@ public interface CountryService {
 
     void delete(Long id);
 
-    List<Country> getPersistObject(List<Country> list);
 }

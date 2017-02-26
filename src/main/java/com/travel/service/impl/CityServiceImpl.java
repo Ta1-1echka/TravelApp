@@ -44,15 +44,4 @@ public class CityServiceImpl implements CityService {
         cityRepository.delete(id);
     }
 
-    @Override
-    public List<City> getPersistObject(Country country) {
-        List<City> cityList = new ArrayList<>();
-        for (City city : country.getCityList()) {
-            List<Hotel> hotelList = city.getHotelList();
-            city = cityRepository.findByCityName(city.getCityName());
-            city.setHotelList(hotelList);
-            cityList.add(city);
-        }
-        return cityList;
-    }
 }

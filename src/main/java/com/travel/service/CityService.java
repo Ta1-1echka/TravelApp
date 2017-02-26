@@ -17,6 +17,4 @@ public interface CityService {
     City getCityById(Long id);
 
     void deleteCityById(Long id);
-
-    List<City> getPersistObject(Country country);
 }

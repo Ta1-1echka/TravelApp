@@ -3,8 +3,10 @@ package com.travel.dto;
 import com.travel.model.Country;
 import com.travel.model.FeedType;
 import com.travel.model.Transport;
+import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 import java.util.List;
 
@@ -13,32 +15,43 @@ import java.util.List;
  */
 public class TourDTO {
 
+    @NotEmpty
     private String tourName;
 
     @DateTimeFormat(iso= DateTimeFormat.ISO.DATE)
+    @NotNull
     private Date dateFrom;
 
     @DateTimeFormat(iso= DateTimeFormat.ISO.DATE)
+    @NotNull
     private Date dateTo;
 
     @DateTimeFormat(iso= DateTimeFormat.ISO.DATE)
+    @NotNull
     private Date dateOut;
 
     @DateTimeFormat(iso= DateTimeFormat.ISO.DATE)
+    @NotNull
     private Date dateBack;
 
+    @NotNull
     private Integer countAllPlaces;
 
+    @NotNull
     private Double adultPrice;
 
+    @NotNull
     private Double childPrice;
 
+    @NotNull
     private String aboutTour;
 
     private String photo;
 
+    @NotNull
     private FeedType feedType;
 
+    @NotNull
     private Transport transport;
 
     private List<Country> list;

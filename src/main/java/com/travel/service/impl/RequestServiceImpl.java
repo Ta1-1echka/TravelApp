@@ -8,6 +8,10 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.StreamSupport;
+
+import static java.util.stream.Collectors.toList;
 
 /**
  * Created by Tanya on 22.02.2017.
@@ -25,14 +29,17 @@ public class RequestServiceImpl implements RequestService {
 
     @Override
     public List<Request> getAllRequests() {
-        Iterable<Request> iterable = requestRepository.findAll();
-        List<Request> list = new ArrayList<>();
-        if (iterable != null) {
-            for (Request e : iterable) {
-                list.add(e);
-            }
-        }
-        return list;
+      //  Iterable<Request> iterable = requestRepository.findAll();
+//        List<Request> list = new ArrayList<>();
+//        Optional<Iterable<Request>> requests = Optional.ofNullable(requestRepository.findAll());
+
+//        List<Request> list =
+//        if (iterable != null) {
+//            for (Request e : iterable) {
+//                list.add(e);
+//            }
+//        }
+        return StreamSupport.stream(requestRepository.findAll().spliterator(),false).collect(toList());
     }
 
     @Override
