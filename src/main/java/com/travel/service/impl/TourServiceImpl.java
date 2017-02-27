@@ -42,8 +42,6 @@ public class TourServiceImpl implements TourService {
 
     @Override
     public List<Tour> getToursByFilter(SearchTourDTO searchTourDTO) {
-
-
         return tourRepository.getToursByFilter(searchTourDTO.getCountryNameList(), searchTourDTO.getDateFrom(),
                 searchTourDTO.getDateTo(), searchTourDTO.getTransport(), searchTourDTO.getFeedType(),
                 searchTourDTO.getPriceFrom(), searchTourDTO.getPriceTo());

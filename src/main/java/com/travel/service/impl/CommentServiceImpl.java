@@ -6,7 +6,6 @@ import com.travel.service.CommentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.StreamSupport;
 
@@ -16,7 +15,7 @@ import static java.util.stream.Collectors.toList;
  * Created by Tanya on 23.02.2017.
  */
 @Service
-public class CommentServiceImpl implements CommentService{
+public class CommentServiceImpl implements CommentService {
 
     @Autowired
     private CommentRepository commentRepository;
@@ -28,13 +27,6 @@ public class CommentServiceImpl implements CommentService{
 
     @Override
     public List<Comment> getAllComments() {
-//        Iterable<Comment> iterable = commentRepository.findAll();
-//        List<Comment> list = new ArrayList<>();
-//        if (iterable != null) {
-//            for (Comment e : iterable) {
-//                list.add(e);
-//            }
-//        }
-        return StreamSupport.stream(commentRepository.findAll().spliterator(),false).collect(toList());
+        return StreamSupport.stream(commentRepository.findAll().spliterator(), false).collect(toList());
     }
 }

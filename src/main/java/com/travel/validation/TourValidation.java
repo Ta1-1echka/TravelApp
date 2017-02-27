@@ -3,7 +3,6 @@ package com.travel.validation;
 import com.travel.dto.TourDTO;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
-import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
 
 
@@ -20,7 +19,6 @@ public class TourValidation implements Validator {
     @Override
     public void validate(Object o, Errors errors) {
         TourDTO tour = (TourDTO) o;
-
         if (tour.getDateFrom() != null & tour.getDateTo() != null)
             if (tour.getDateFrom().after(tour.getDateTo())) {
                 errors.rejectValue("dateFrom", "IncorrectValue");

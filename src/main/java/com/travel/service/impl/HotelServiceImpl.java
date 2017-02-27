@@ -9,8 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.util.ArrayList;
 import java.util.List;
+
+import static java.util.stream.Collectors.toList;
 
 /**
  * Created by Tanya on 13.02.2017.
@@ -34,14 +35,9 @@ public class HotelServiceImpl implements HotelService {
 
     @Override
     public List<Hotel> getPersistObject(List<Country> list) {
-        List<Hotel> hotelList = new ArrayList<>();
-        for (Country country : list) {
-            for (City city : country.getCityList()) {
-                for (Hotel hotel : city.getHotelList()) {
-                    hotelList.add(hotelRepository.findByHotelNameCityId(hotel.getHotelName(),city.getCityName()));
-                }
-            }
-        }
-        return hotelList;
+        return list.stream().map(Country::getCityList).flatMap(List::stream).map(City::getHotelList).flatMap(List::stream).
+                map(hotel -> hotelRepository.findOne(hotel.getIdHotel()))
+                .collect(toList());
+
     }
 }

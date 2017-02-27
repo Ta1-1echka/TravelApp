@@ -36,6 +36,8 @@ public class TourConverter {
         tour.setFeedType(tourDTO.getFeedType());
         tour.setPhoto(tourDTO.getPhoto());
         tour.setHotelList(hotelService.getPersistObject(tourDTO.getList()));
+        tour.setStarCount(0);
+
         return tour;
     }
 

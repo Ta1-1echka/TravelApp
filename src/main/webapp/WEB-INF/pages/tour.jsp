@@ -48,18 +48,18 @@
 
             <c:forEach items="${countryList}" var="country">
             <c:set var="name" value="${country.nameCode}"/>
-            countryList.push("${country.nameCode}")
+            countryList.push({id: "${country.idCountry}", name: "${country.nameCode}"});
             </c:forEach>
 
-            var countryId = 'list' + i + '.nameCode', countryName = 'list[' + i + '].nameCode';
-            var cityId = 'list' + i + '.cityList' + j + '.cityName', cityName = 'list[' + i + '].cityList[' + j + '].cityName';
-            var hotelId = 'list' + i + '.cityList' + j + '.hotelList' + k + '.hotelName',
-                hotelName = 'list[' + i + '].cityList[' + j + '].hotelList[' + k + '].hotelName';
+            var countryName = 'list[' + i + '].idCountry';
+            var cityName = 'list[' + i + '].cityList[' + j + '].idCity';
+            var hotelName = 'list[' + i + '].cityList[' + j + '].hotelList[' + k + '].idHotel';
+
             createStr(countryList, countryName);
             $('#countryDiv').append(fistStr);
-            createStr(getCityList(countryList[0]), cityName);
+            createStr(getCityList(countryList[0].id), cityName);
             $('#cityDiv').append(fistStr);
-            createStr(getHotelList(countryList[0], cityList[0]), hotelName);
+            createStr(getHotelList(countryList[0].id, cityList[0].id), hotelName);
             $('#hotelDiv').append(fistStr);
 
             function add(e) {
@@ -67,37 +67,38 @@
                 var value = e.value,
                     name = e.name;
                 var countryIndex, cityIndex;
-                if (name.indexOf("cityName") != -1 && name.indexOf("hotelName") == -1) {
+                if (name.indexOf("idCity") != -1 && name.indexOf("idHotel") == -1) {
                     cityIndex = e.selectedIndex;
                     var nameCountry = name.substring(0, name.indexOf("]") + 2);
-                    nameCountry += "nameCode";
+                    nameCountry += "idCountry";
                     countryIndex = document.getElementsByName(nameCountry)[0].selectedIndex;
-                    var nameHotel = name.substring(0, name.indexOf("cityName"));
+                    var nameHotel = name.substring(0, name.indexOf("idCity"));
                     nameHotel += "hotelList["
                     for (var t = 0; ; t++) {
-                        var search = nameHotel + t + "].hotelName";
+                        var search = nameHotel + t + "].idHotel";
                         var resultSelect = document.getElementsByName(search);
                         if (resultSelect.length == 0)
                             return;
-                        hotelList = getHotelList(countryList[countryIndex], cityList[cityIndex]);
+                        alert(countryList[countryIndex].id + " " + cityList[cityIndex].id);
+                        hotelList = getHotelList(countryList[countryIndex].id, cityList[cityIndex].id);
                         while (resultSelect[0].options.length) {
                             resultSelect[0].remove(0);
                         }
                         for (var opt = 0; opt < hotelList.length; opt++) {
-                            var hotel = new Option(hotelList[opt], hotelList[opt]);
+                            var hotel = new Option(hotelList[opt].name, hotelList[opt].id);
                             resultSelect[0].options.add(hotel);
                         }
                     }
 
                 }
-                else if (name.indexOf("nameCode") != -1 && name.indexOf("cityName") == -1 && name.indexOf("hotelName") == -1) {
+                else if (name.indexOf("idCountry") != -1 && name.indexOf("idCity") == -1 && name.indexOf("idHotel") == -1) {
                     countryIndex = e.selectedIndex;
-                    var nameCity = name.substring(0, name.indexOf("nameCode"));
-                    cityList = getCityList(countryList[countryIndex]);
-                    hotelList = getHotelList(countryList[countryIndex], cityList[0]);
+                    var nameCity = name.substring(0, name.indexOf("idCountry"));
+                    cityList = getCityList(countryList[countryIndex].id);
+                    hotelList = getHotelList(countryList[countryIndex].id, cityList[0].id);
                     nameCity += "cityList[";
                     for (var t = 0; ; t++) {
-                        var search = nameCity + t + "].cityName";
+                        var search = nameCity + t + "].idCity";
                         var resultSelect = document.getElementsByName(search);
                         if (resultSelect.length == 0)
                             break;
@@ -105,11 +106,11 @@
                             resultSelect[0].remove(0);
                         }
                         for (var opt = 0; opt < cityList.length; opt++) {
-                            var city = new Option(cityList[opt], cityList[opt]);
+                            var city = new Option(cityList[opt].name, cityList[opt].id);
                             resultSelect[0].options.add(city);
                         }
                         for (var hindex = 0; ; hindex++) {
-                            var searchHotel = nameCity + t + "].hotelList[" + hindex + "].hotelName";
+                            var searchHotel = nameCity + t + "].hotelList[" + hindex + "].idHotel";
                             var resultSelectHotel = document.getElementsByName(searchHotel);
                             if (resultSelectHotel.length == 0)
                                 break;
@@ -117,7 +118,7 @@
                                 resultSelectHotel[0].remove(0);
                             }
                             for (var optH = 0; optH < hotelList.length; optH++) {
-                                var hotel = new Option(hotelList[optH], hotelList[optH]);
+                                var hotel = new Option(hotelList[optH].name, hotelList[optH].id);
                                 resultSelectHotel[0].options.add(hotel);
                             }
                         }
@@ -128,27 +129,26 @@
 
             };
 
-            function getCityList(name) {
+            function getCityList(idCountry) {
                 <c:forEach items="${countryList}" var="country">
-                sss = "${country.nameCode}";
-                if (name.localeCompare(sss) == 0) {
+                if (idCountry == "${country.idCountry}") {
                     cityList = [];
                     <c:forEach items="${country.cityList}" var="city">
-                    cityList.push("${city.cityName}");
+                    cityList.push({id: "${city.idCity}", name: "${city.cityName}"});
                     </c:forEach>
                     return cityList;
                 }
                 </c:forEach>
             }
 
-            function getHotelList(countryName, cityName) {
+            function getHotelList(idCountry, idCity) {
                 <c:forEach items="${countryList}" var="country">
-                if (countryName.localeCompare("${country.nameCode}") == 0) {
+                if (idCountry == "${country.idCountry}") {
                     <c:forEach items="${country.cityList}" var="city">
-                    if (cityName.localeCompare("${city.cityName}") == 0) {
+                    if (idCity.localeCompare("${city.idCity}") == 0) {
                         hotelList = [];
                         <c:forEach items="${city.hotelList}" var="hotel">
-                        hotelList.push("${hotel.hotelName}");
+                        hotelList.push({id: "${hotel.idHotel}", name: "${hotel.hotelName}"});
                         </c:forEach>
                         return hotelList;
                     }
@@ -161,7 +161,7 @@
                 fistStr = '<select name="' + name + '" class="form-control ">';
 
                 for (var a = 0; a < list.length; a++)
-                    fistStr += ('<option value="' + list[a] + '">' + list[a] + '</option>');
+                    fistStr += ('<option value="' + list[a].id + '">' + list[a].name + '</option>');
 
 
                 fistStr += '</select><br>';
@@ -176,12 +176,11 @@
                 i++;
                 j = 0;
                 k = 0;
-                var countryId = 'list' + i + '.nameCode', countryName = 'list[' + i + '].nameCode';
-                var cityId = 'list' + i + '.cityList' + j + '.cityName', cityName = 'list[' + i + '].cityList[' + j + '].cityName';
-                var hotelId = 'list' + i + '.cityList' + j + '.hotelList' + k + '.hotelName',
-                    hotelName = 'list[' + i + '].cityList[' + j + '].hotelList[' + k + '].hotelName';
-                cityList = getCityList(countryList[0]);
-                hotelList = getHotelList(countryList[0], cityList[0])
+                cityList = getCityList(countryList[0].id);
+                hotelList = getHotelList(countryList[0].id, cityList[0].id)
+                var countryName = 'list[' + i + '].idCountry';
+                var cityName = 'list[' + i + '].cityList[' + j + '].idCity';
+                var hotelName = 'list[' + i + '].cityList[' + j + '].hotelList[' + k + '].idHotel';
                 $('#countryDiv').append(createStr(countryList, countryName));
                 $('#cityDiv').append(createStr(cityList, cityName));
                 $('#hotelDiv').append(createStr(hotelList, hotelName));
@@ -190,20 +189,21 @@
             $('#btnAddCity').click(function () {
                 k = 0;
                 j++;
-                var cityId = 'list' + i + '.cityList' + j + '.cityName', cityName = 'list[' + i + '].cityList[' + j + '].cityName';
-                var hotelId = 'list' + i + '.cityList' + j + '.hotelList' + k + '.hotelName',
-                    hotelName = 'list[' + i + '].cityList[' + j + '].hotelList[' + k + '].hotelName';
-                cityList = getCityList(countryList[0]);
-                hotelList = getHotelList(countryList[0], cityList[0])
+                var countryName = 'list[' + i + '].idCountry';
+                var cityName = 'list[' + i + '].cityList[' + j + '].idCity';
+                var hotelName = 'list[' + i + '].cityList[' + j + '].hotelList[' + k + '].idHotel';
+                cityList = getCityList(countryList[0].id);
+                hotelList = getHotelList(countryList[0].id, cityList[0].id)
                 $('#countryDiv').append('<br><p style="height: 25px"/>');
                 $('#cityDiv').append(createStr(cityList, cityName));
                 $('#hotelDiv').append(createStr(hotelList, hotelName));
             });
             $('#btnAddHotel').click(function () {
                 k++;
-                var hotelId = 'list' + i + '.cityList' + j + '.hotelList' + k + '.hotelName',
-                    hotelName = 'list[' + i + '].cityList[' + j + '].hotelList[' + k + '].hotelName';
-                hotelList = getHotelList(countryList[0], cityList[0])
+                var countryName = 'list[' + i + '].idCountry';
+                var cityName = 'list[' + i + '].cityList[' + j + '].idCity';
+                var hotelName = 'list[' + i + '].cityList[' + j + '].hotelList[' + k + '].idHotel';
+                hotelList = getHotelList(countryList[0].id, cityList[0].id)
                 $('#countryDiv').append('<br><p style="height: 25px"/>');
                 $('#cityDiv').append('<br><p style="height: 25px"/>');
                 $('#hotelDiv').append(createStr(hotelList, hotelName));

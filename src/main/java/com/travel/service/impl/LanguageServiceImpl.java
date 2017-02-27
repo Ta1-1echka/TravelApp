@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Created by Tanya on 10.02.2017.
@@ -21,16 +22,16 @@ public class LanguageServiceImpl implements LanguageService {
 
     @Override
     public List<Language> saveOrUpdate(List<Language> languageList) {
-        Language findLanguage;
-        for (Language language : languageList) {
-            findLanguage = languageRepository.findByLanguageName(language.getLanguageName());
-            if (findLanguage == null) {
-                languageRepository.save(language);
-            } else {
-                language.setIdLanguage(findLanguage.getIdLanguage());
-            }
-
-        }
+         languageList.stream()
+                .forEach(language -> {
+                    Optional<Language> findLanguage = Optional
+                            .ofNullable(languageRepository.findByLanguageName(language.getLanguageName()));
+                    if (findLanguage.isPresent()) {
+                        languageRepository.save(language);
+                    } else {
+                        language.setIdLanguage(findLanguage.get().getIdLanguage());
+                    }
+                });
         return languageList;
     }
 }
